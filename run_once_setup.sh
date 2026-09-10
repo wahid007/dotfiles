@@ -1,6 +1,14 @@
 #!/bin/sh
 echo "running setup..."
 
+# Make user-installed commands available immediately. Installers also update
+# shell startup files, but those changes do not affect this running script.
+mkdir -p "$HOME/.local/bin"
+export PATH="$HOME/.atuin/bin:$HOME/.local/bin:$PATH"
+
+grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' "$HOME/.bashrc" 2>/dev/null || \
+  printf '\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$HOME/.bashrc"
+
 # fd for finding files.
 # rg for searching inside files.
 # fzf for interactive selection.
@@ -36,8 +44,4 @@ atuin import auto
 
 # ##########################
 # Install Starship for Linux 
-mkdir -p "$HOME/.local/bin"
 curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir "$HOME/.local/bin"
-grep -qxF 'export PATH="/home/wahid/.local/bin:$PATH"' "$HOME/.bashrc" 2>/dev/null || \
-  printf '\nexport PATH="/home/wahid/.local/bin:$PATH"\n' >> "$HOME/.bashrc"
-export PATH="/home/wahid/.local/bin:$PATH"
