@@ -38,3 +38,6 @@ atuin import auto
 # Install Starship for Linux 
 mkdir -p "$HOME/.local/bin"
 curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir "$HOME/.local/bin"
+grep -qxF 'export PATH="/home/wahid/.local/bin:$PATH"' "$HOME/.bashrc" 2>/dev/null || \
+  printf '\nexport PATH="/home/wahid/.local/bin:$PATH"\n' >> "$HOME/.bashrc"
+export PATH="/home/wahid/.local/bin:$PATH"
