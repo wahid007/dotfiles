@@ -6,8 +6,13 @@ echo "running setup..."
 mkdir -p "$HOME/.local/bin"
 export PATH="$HOME/.atuin/bin:$HOME/.local/bin:$PATH"
 
-grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' "$HOME/.bashrc" 2>/dev/null || \
-  printf '\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$HOME/.bashrc"
+if ! grep -qxF 'export PATH="$HOME/.atuin/bin:$HOME/.local/bin:$PATH"' "$HOME/.bashrc" 2>/dev/null; then
+  if [ -f "$HOME/.bashrc" ]; then
+    sed -i '1iexport PATH="$HOME/.atuin/bin:$HOME/.local/bin:$PATH"' "$HOME/.bashrc"
+  else
+    printf 'export PATH="$HOME/.atuin/bin:$HOME/.local/bin:$PATH"\n' > "$HOME/.bashrc"
+  fi
+fi
 
 # fd for finding files.
 # rg for searching inside files.
