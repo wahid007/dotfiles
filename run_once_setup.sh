@@ -25,7 +25,7 @@ sudo apt install cmatrix -y
 # fastfetch - fetching system information and displaying it in a visually appealing way
 # gdu - Disk Usage with slick TUI
 # Superfile - fancy file manager (spf)
-sudo apt install lazygit fastfetch gdu
+sudo apt install -y lazygit fastfetch gdu
 curl -fsSL https://herdr.dev/install.sh | sh
 bash -c "$(curl -sLo- https://superfile.dev/install.sh)"
 
@@ -36,4 +36,5 @@ atuin import auto
 
 # ##########################
 # Install Starship for Linux 
-curl -sS https://starship.rs/install.sh | sh
+mkdir -p "$HOME/.local/bin"
+curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir "$HOME/.local/bin"
